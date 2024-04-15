@@ -5,6 +5,7 @@ from ERP_Project.serializers.manager1 import productSerializer, brandSerializer
 from rest_framework.pagination import PageNumberPagination
 from ERP_Project.filters import Manager1Filter
 from ERP_Project.all_permissions import Manager1Permission
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class brandViewSet(viewsets.ModelViewSet):
@@ -30,7 +31,7 @@ class productViewSet(viewsets.ModelViewSet):
     serializer_class = productSerializer
 
     pagination_class = CustomPagination
-    filter_backends = (filters.SearchFilter,)
+    filter_backends = (filters.SearchFilter, DjangoFilterBackend)
     filterset_class = Manager1Filter
     search_fields = ['name', 'description']
 

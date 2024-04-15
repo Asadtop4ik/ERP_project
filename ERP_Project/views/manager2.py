@@ -1,4 +1,4 @@
-
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, filters
 from ERP_Project.serializers.manager2 import warehouse_productSerializer
 from rest_framework.pagination import PageNumberPagination
@@ -17,7 +17,7 @@ class warehouse_productViewSet(viewsets.ModelViewSet):
     serializer_class = warehouse_productSerializer
 
     pagination_class = CustomPagination
-    filter_backends = (filters.SearchFilter,)
+    filter_backends = (filters.SearchFilter, DjangoFilterBackend)
     filterset_class = Manager2Filter
     search_fields = ['name', 'description']
 
