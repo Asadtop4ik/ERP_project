@@ -1,5 +1,4 @@
 from django.http import JsonResponse, HttpResponseBadRequest
-from django.contrib.admin.views.decorators import staff_member_required
 from ERP_Project.models.manager2 import warehouse_product
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework.decorators import api_view
