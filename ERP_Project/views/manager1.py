@@ -3,7 +3,6 @@ from rest_framework.decorators import action
 from ERP_Project.models.manager1 import brand, product
 from ERP_Project.serializers.manager1 import productSerializer, brandSerializer
 from rest_framework.pagination import PageNumberPagination
-from ERP_Project.filters import Manager1Filter
 from ERP_Project.all_permissions import Manager1Permission
 
 
@@ -31,7 +30,6 @@ class productViewSet(viewsets.ModelViewSet):
 
     pagination_class = CustomPagination
     filter_backends = (filters.SearchFilter,)
-    filterset_class = Manager1Filter
     search_fields = ['name', 'description']
 
     def list(self, request, *args, **kwargs):
