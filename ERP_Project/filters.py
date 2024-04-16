@@ -13,3 +13,9 @@ class Manager3Filter(django_filters.FilterSet):
     class Meta:
         model = filial_product
         fields = ['filial_id']
+
+
+class story_productFilter(django_filters.FilterSet):
+    class Meta:
+        model = warehouse_product
+        fields = ['brand_id']
