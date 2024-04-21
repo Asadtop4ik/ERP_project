@@ -9,6 +9,7 @@ click==8.1.7
 cryptography==42.0.5
 distro==1.7.0
 Django==5.0.4
+django-cors-headers==4.3.1
 django-filter==24.2
 djangorestframework==3.15.1
 djangorestframework-simplejwt==5.3.1
