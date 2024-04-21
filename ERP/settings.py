@@ -24,9 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-0s2#*q9k=gz=v^72qworm5i*yuko#l_$%f%yapmkqg*az5-t^r'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'erp-project-lpwj.onrender.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -43,12 +43,9 @@ INSTALLED_APPS = [
     'drf_yasg',
     'django_filters',
     'rest_framework_simplejwt',
-    'corsheaders',
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -59,10 +56,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
-    'http://127.0.0.1:3000',
-]
 
 ROOT_URLCONF = 'ERP.urls'
 
