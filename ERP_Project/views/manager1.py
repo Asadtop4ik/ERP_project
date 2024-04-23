@@ -7,7 +7,7 @@ from ERP_Project.all_permissions import Manager1Permission
 
 
 class brandViewSet(viewsets.ModelViewSet):
-    # permission_classes = [Manager1Permission]
+    permission_classes = [Manager1Permission]
     queryset = brand.objects.all()
     serializer_class = brandSerializer
 

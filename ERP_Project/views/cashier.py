@@ -7,7 +7,7 @@ from ERP_Project.serializers.cashier import customerSerializer, story_productSer
 from rest_framework import generics
 from ERP_Project.models.manager2 import warehouse_product
 from ERP_Project.filters import story_productFilter
-
+from ERP_Project.all_permissions import CashierPermission
 
 
 class CustomPagination(PageNumberPagination):
@@ -15,11 +15,13 @@ class CustomPagination(PageNumberPagination):
 
 
 class customerViewSet(viewsets.ModelViewSet):
+    permission_classes = [CashierPermission]
     queryset = customer.objects.all()
     serializer_class = customerSerializer
 
 
 class story_productViewSet(viewsets.ModelViewSet):
+    permission_classes = [CashierPermission]
     queryset = warehouse_product.objects.all()
     serializer_class = story_productSerializer
 
