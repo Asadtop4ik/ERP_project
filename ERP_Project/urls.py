@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from ERP_Project.views.manager1 import productViewSet, brandViewSet
+from ERP_Project.views.manager1 import productViewSet, brandViewSet, ProfileApiView
 from ERP_Project.views.manager2 import warehouse_productViewSet
 from ERP_Project.views.manager3 import filial_productViewSet, filialViewSet
 from .replenish_stock import admin_replenish_stock
@@ -18,7 +18,7 @@ router.register(r'cashier/story_product', story_productViewSet, basename='story_
 
 urlpatterns = [
     path('', include(router.urls)),
-
+    path('user/profile/', ProfileApiView.as_view(), name='profile'),
     path('replenish_stock/<int:warehouse_product_id>/<int:count>', admin_replenish_stock, name='admin_replenish_stock'),
 
 ]

@@ -150,8 +150,8 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT','Bearer'),
     'ALGORITHM': 'HS256',
-    'SLIDING_TOKEN_LIFETIME': timedelta(hours=8),  # Lifespan of access tokens.
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=7),  # Lifespan of refresh tokens.
+    'SLIDING_TOKEN_LIFETIME': timedelta(days=7),  # Lifespan of access tokens.
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=100    ),  # Lifespan of refresh tokens.
 }
 
 SWAGGER_SETTINGS = {

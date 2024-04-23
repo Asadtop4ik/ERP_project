@@ -9,7 +9,7 @@ class warehouse_product(models.Model):
     sale_price = models.CharField(max_length=255)
     brand_id = models.ForeignKey(brand, blank=True, null=True, on_delete=models.SET_NULL)
     reg_data = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='images/', default='Images/None/no-img.jpg')
+    image = models.ImageField(upload_to='images/')
     where_to = models.CharField(max_length=255, null=True, blank=True)
     color = models.CharField(max_length=100)
     stock = models.IntegerField(default=0)

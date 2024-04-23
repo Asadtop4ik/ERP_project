@@ -1,10 +1,12 @@
+from django.contrib.auth.models import User
 from rest_framework import viewsets, filters, response
 from rest_framework.decorators import action
 from ERP_Project.models.manager1 import brand, product
-from ERP_Project.serializers.manager1 import productSerializer, brandSerializer
+from ERP_Project.serializers.manager1 import productSerializer, brandSerializer, ProfileSerializer
 from rest_framework.pagination import PageNumberPagination
 from ERP_Project.all_permissions import Manager1Permission
-
+from rest_framework.generics import RetrieveAPIView
+from rest_framework.permissions import IsAuthenticated
 
 class brandViewSet(viewsets.ModelViewSet):
     permission_classes = [Manager1Permission]
@@ -39,6 +41,12 @@ class productViewSet(viewsets.ModelViewSet):
         return super().list(request, *args, **kwargs)
 
 
+class ProfileApiView(RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = ProfileSerializer
+    permission_classes = [IsAuthenticated]
 
+    def get_object(self):
+        return self.request.user
 
 

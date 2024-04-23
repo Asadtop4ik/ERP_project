@@ -21,3 +21,4 @@ class customer(models.Model):
         return f"{self.name} {self.phone_number}"
 
 
+
