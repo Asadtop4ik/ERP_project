@@ -1,7 +1,9 @@
 from django.db import models
-
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 class brand(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -9,6 +11,7 @@ class brand(models.Model):
 
 
 class product(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField()
     first_price = models.CharField(max_length=255)

@@ -22,7 +22,7 @@ class warehouse_productViewSet(viewsets.ModelViewSet):
     search_fields = ['name', 'description']
 
     def list(self, request, *args, **kwargs):
-        brand_id = request.query_params.get('brand_id', None)
-        if brand_id:
-            self.queryset = self.queryset.filter(brand_id=brand_id)
+        warehouse_brand = request.query_params.get('brand', None)
+        if warehouse_brand:
+            self.queryset = self.queryset.filter(brand=warehouse_brand)
         return super().list(request, *args, **kwargs)

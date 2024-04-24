@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from rest_framework import viewsets, filters, response
 from rest_framework.decorators import action
 from ERP_Project.models.manager1 import brand, product
@@ -7,6 +7,7 @@ from rest_framework.pagination import PageNumberPagination
 from ERP_Project.all_permissions import Manager1Permission
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
+User = get_user_model()
 
 class brandViewSet(viewsets.ModelViewSet):
     permission_classes = [Manager1Permission]
@@ -37,7 +38,7 @@ class productViewSet(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         brand_id = request.query_params.get('brand_id', None)
         if brand_id:
-            self.queryset = self.queryset.filter(brand_id=brand_id)
+            self.queryset = self.queryset.filter(brand=brand_id)
         return super().list(request, *args, **kwargs)
 
 

@@ -1,6 +1,7 @@
-from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from rest_framework import serializers
 from ERP_Project.models.manager1 import brand, product
+User = get_user_model()
 
 
 class brandSerializer(serializers.ModelSerializer):
@@ -22,7 +23,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["id", "username", "first_name", "last_name", "email", "is_staff", "is_active"]
+        fields = ["id", "username", "role", "is_staff", "is_active"]
         read_only_fields = [
             'id',
         ]

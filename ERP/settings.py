@@ -27,6 +27,7 @@ SECRET_KEY = 'django-insecure-0s2#*q9k=gz=v^72qworm5i*yuko#l_$%f%yapmkqg*az5-t^r
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+AUTH_USER_MODEL = 'custom_auth.CustomUser'
 
 
 # Application definition
@@ -44,7 +45,7 @@ INSTALLED_APPS = [
     'django_filters',
     'rest_framework_simplejwt',
     'corsheaders',
-
+    'custom_auth',
 ]
 
 MIDDLEWARE = [

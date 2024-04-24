@@ -1,5 +1,7 @@
 from django.db import models
 from .manager2 import warehouse_product
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 pay_CHOICES = [
@@ -9,6 +11,7 @@ pay_CHOICES = [
 
 
 class customer(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     surname = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)
