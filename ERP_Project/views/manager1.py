@@ -27,7 +27,7 @@ class CustomPagination(PageNumberPagination):
 
 
 class productViewSet(viewsets.ModelViewSet):
-    permission_classes = [Manager1Permission]
+    # permission_classes = [Manager1Permission]
     queryset = product.objects.all()
     serializer_class = productSerializer
 
