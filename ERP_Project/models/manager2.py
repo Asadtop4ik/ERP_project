@@ -5,7 +5,6 @@ User = get_user_model()
 
 
 class warehouse_product(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     description = models.TextField()
     first_price = models.CharField(max_length=255)
