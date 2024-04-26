@@ -1,50 +1,41 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, Group
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
 from django.utils import timezone
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, username, role, password=None, **extra_fields):
+    def create_user(self, username, role,  password, **extra_fields):
         if not username:
             raise ValueError('The username must be set')
-        if not role:
-            raise ValueError('The role must be set')
         user = self.model(username=username, role=role, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, username, password=None, **extra_fields):
+    def create_superuser(self, username, role, password, **extra_fields):
         extra_fields.setdefault('is_staff', True)
         extra_fields.setdefault('is_superuser', True)
+        extra_fields.setdefault('is_active', True)
         if extra_fields.get('is_staff') is not True:
             raise ValueError('Superuser must have is_staff=True.')
         if extra_fields.get('is_superuser') is not True:
             raise ValueError('Superuser must have is_superuser=True.')
-        return self.create_user(username, 'admin', password, **extra_fields)
-
+        return self.create_user(username, role, password, **extra_fields)
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    ADMIN = 'admin'
-    MANAGER1 = 'manager1'
-    MANAGER2 = 'manager2'
-    MANAGER3 = 'manager3'
-    CASHIER = 'cashier'
-
-    ROLES = [
-        (ADMIN, 'admin'),
-        (MANAGER1, 'manager1'),
-        (MANAGER2, 'manager2'),
-        (MANAGER3, 'manager3'),
-        (CASHIER, 'cashier'),
-    ]
-
-    username = models.CharField(max_length=255, unique=True)
-    role = models.CharField(max_length=15, choices=ROLES, default=ADMIN)
+    ROLE_CHOICES = (
+        ('admin', 'Admin'),
+        ('manager1', 'Manager1'),
+        ('manager2', 'Manager2'),
+        ('manager3', 'Manager3'),
+        ('cashier', 'Cashier'),
+    )
+    password = models.CharField(max_length=128, null=True)
+    role = models.CharField(max_length=255, choices=ROLE_CHOICES)
+    username = models.CharField(max_length=255, blank=True, null=True, unique=True)
     date_joined = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
-    groups = models.ManyToManyField(Group, blank=True)
 
     objects = CustomUserManager()
 
@@ -53,3 +44,5 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+
+

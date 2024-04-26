@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-0s2#*q9k=gz=v^72qworm5i*yuko#l_$%f%yapmkqg*az5-t^r
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-AUTH_USER_MODEL = 'custom_auth.CustomUser'
+
 
 
 # Application definition
@@ -63,6 +63,8 @@ MIDDLEWARE = [
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_ALL_ORIGINS = True
 
+
+AUTH_USER_MODEL = 'custom_auth.CustomUser'
 
 ROOT_URLCONF = 'ERP.urls'
 
