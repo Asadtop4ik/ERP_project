@@ -1,48 +1,56 @@
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
 from django.db import models
-from django.utils import timezone
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.base_user import BaseUserManager
+from django.utils.translation import gettext_lazy as _
 
 
 class CustomUserManager(BaseUserManager):
-    def create_user(self, username, role,  password, **extra_fields):
+    def create_user(self, username, password, **extra_fields):
         if not username:
-            raise ValueError('The username must be set')
-        user = self.model(username=username, role=role, **extra_fields)
+            raise ValueError(_("Email required field!"))
+        user = self.model(username=username, **extra_fields)
         user.set_password(password)
-        user.save(using=self._db)
+        user.save()
         return user
 
-    def create_superuser(self, username, role, password, **extra_fields):
-        extra_fields.setdefault('is_staff', True)
-        extra_fields.setdefault('is_superuser', True)
-        extra_fields.setdefault('is_active', True)
-        if extra_fields.get('is_staff') is not True:
-            raise ValueError('Superuser must have is_staff=True.')
-        if extra_fields.get('is_superuser') is not True:
-            raise ValueError('Superuser must have is_superuser=True.')
-        return self.create_user(username, role, password, **extra_fields)
+    def create_superuser(self, username, password, **extra_fields):
+        """
+        Create and save a SuperUser with the given email and password.
+        """
+        extra_fields.setdefault("is_staff", True)
+        extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_active", True)
 
-class CustomUser(AbstractBaseUser, PermissionsMixin):
+        if extra_fields.get("is_staff") is not True:
+            raise ValueError(_("Superuser must have is_staff=True."))
+        if extra_fields.get("is_superuser") is not True:
+            raise ValueError(_("Superuser must have is_superuser=True."))
+        return self.create_user(username, password, **extra_fields)
+
+
+class CustomUser(AbstractUser):
+    ADMIN = 'admin'
+    MANAGER1 = 'manager1'
+    MANAGER2 = 'manager2'
+    MANAGER3 = 'manager3'
+    CASHIER = 'cashier'
+
     ROLE_CHOICES = (
-        ('admin', 'Admin'),
-        ('manager1', 'Manager1'),
-        ('manager2', 'Manager2'),
-        ('manager3', 'Manager3'),
-        ('cashier', 'Cashier'),
+        (ADMIN, 'admin'),
+        (MANAGER1, 'manager1'),
+        (MANAGER2, 'manager2'),
+        (MANAGER3, 'manager3'),
+        (CASHIER, 'cashier'),
     )
-    password = models.CharField(max_length=128, null=True)
-    role = models.CharField(max_length=255, choices=ROLE_CHOICES)
-    username = models.CharField(max_length=255, blank=True, null=True, unique=True)
-    date_joined = models.DateTimeField(default=timezone.now)
-    is_active = models.BooleanField(default=True)
-    is_staff = models.BooleanField(default=False)
+    password = models.CharField(max_length=255)
+    username = models.CharField(max_length=255, unique=True, null=True)
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    USERNAME_FIELD = "username"
+    REQUIRED_FIELDS = []
 
     objects = CustomUserManager()
 
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['role']
-
-    def __str__(self):
+    def str(self):
         return self.username
-
-
