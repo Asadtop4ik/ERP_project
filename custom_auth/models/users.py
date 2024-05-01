@@ -52,5 +52,11 @@ class CustomUser(AbstractUser):
 
     objects = CustomUserManager()
 
-    def str(self):
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            if self.password:
+                self.set_password(self.password)
+        super().save(*args, **kwargs)
+
+    def __str__(self):
         return self.username
