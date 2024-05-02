@@ -161,17 +161,3 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(days=30),  # Lifespan of access tokens.
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=100),  # Lifespan of refresh tokens.
 }
-
-SWAGGER_SETTINGS = {
-    'SECURITY_DEFINITIONS': {
-        'Bearer': {
-            'type': 'apiKey',
-            'name': 'Authorization',
-            'in': 'header',
-        },
-    },
-    'USE_SESSION_AUTH': False,  # Set to False if using token authentication
-    'JSON_EDITOR': True,
-}
-
-

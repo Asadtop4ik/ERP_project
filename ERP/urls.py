@@ -28,7 +28,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title="API",
         default_version='v1',
-        description="API",
+        description="api",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="contact@myapi.local"),
         license=openapi.License(name="BSD License"),
@@ -36,19 +36,6 @@ schema_view = get_schema_view(
     public=True,
     permission_classes=[permissions.AllowAny],
     generator_class=JWTSchemaGenerator,
-)
-
-
-schema_view = get_schema_view(
-    openapi.Info(
-        title="API",
-        default_version='v1',
-        description="API",
-        terms_of_service="https://www.google.com/policies/terms/",
-        contact=openapi.Contact(email="contact@myapi.local"),
-        license=openapi.License(name="BSD License"),
-    ),
-    public=True,
 )
 
 urlpatterns = [
